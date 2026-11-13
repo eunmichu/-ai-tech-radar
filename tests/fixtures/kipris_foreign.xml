@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response><header><requestMsgID></requestMsgID><responseTime></responseTime><responseMsgID></responseMsgID><successYN>Y</successYN><resultCode></resultCode><resultMsg></resultMsg></header><body><items>
+<searchResult><ltrtno>US20269999001A1</ltrtno><countryCode>US</countryCode><inventionName>Test system for training a neural network with sparse attention</inventionName><applicant>TEST CORP|OTHER INC</applicant><applicationNo>18999001</applicationNo><applicationDate>20250201</applicationDate><openNumber>20269999001</openNumber><openDate>20261105</openDate><registerNo></registerNo><ipc>G06N 3/045</ipc></searchResult>
+</items><totalSearchCount>1</totalSearchCount></body></response>

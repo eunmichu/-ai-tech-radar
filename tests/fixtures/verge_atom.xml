@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Test Atom</title>
+<entry><title type="html">Test lab ships a new open-weight reasoning model</title><link rel="alternate" type="text/html" href="https://example.com/2026/11/12/test-reasoning-model"/><id>tag:test,2026:1</id><published>2026-11-12T15:00:00-05:00</published><updated>2026-11-12T16:00:00-05:00</updated><summary type="html">&lt;p&gt;A large language model test summary.&lt;/p&gt;</summary><author><name>Writer</name></author></entry>
+</feed>

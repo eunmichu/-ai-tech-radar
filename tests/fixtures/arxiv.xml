@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom">
+<title type="html">ArXiv Query: test</title><id>http://arxiv.org/api/test</id><updated>2026-11-13T00:00:00-05:00</updated><opensearch:totalResults>2</opensearch:totalResults>
+<entry><id>http://arxiv.org/abs/2611.99001v2</id><updated>2026-11-12T18:00:00Z</updated><published>2026-11-12T17:59:00Z</published>
+<title>Test Paper: Efficient Agents for
+  Tool Use</title><summary>  We study tool-using language model agents. This is a test abstract.
+</summary><author><name>Author A</name></author><author><name>Author B</name></author><author><name>Author C</name></author><author><name>Author D</name></author>
+<link href="http://arxiv.org/abs/2611.99001v2" rel="alternate" type="text/html"/><link title="pdf" href="http://arxiv.org/pdf/2611.99001v2" rel="related" type="application/pdf"/>
+<arxiv:primary_category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/><category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/><category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/></entry>
+<entry><id>http://arxiv.org/abs/2611.99002v1</id><updated>2026-11-12T10:00:00Z</updated><published>2026-11-12T10:00:00Z</published>
+<title>Test Humanoid Locomotion with Diffusion Policies</title><summary>A robot test abstract.</summary><author><name>Author E</name></author>
+<arxiv:primary_category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/><category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/></entry>
+</feed>
