@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-Tech Radar — AI 뉴스·논문·특허</title>
+  <meta name="description" content="AI 뉴스, 논문, 특허를 한곳에 모아 분야·날짜별로 보고 한국어로 검색합니다. 3시간마다 자동 갱신.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F1F3F6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0D1320" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>
+    try { const t = localStorage.getItem('atr.theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#feed">본문 바로가기</a>
+
+  <header class="top">
+    <div class="top-in">
+      <a class="brand" href="./" aria-label="AI-Tech Radar 처음 화면">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".35"/>
+          <circle cx="16" cy="16" r="8" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/>
+          <path d="M16 16 L16 3 A13 13 0 0 1 27.3 9.5 Z" fill="currentColor" opacity=".9"/>
+          <circle cx="22.5" cy="11" r="1.9" fill="var(--t-news)"/>
+          <circle cx="9.5" cy="20" r="1.9" fill="var(--t-paper)"/>
+          <circle cx="19" cy="23.5" r="1.9" fill="var(--t-patent)"/>
+        </svg>
+        <span class="brand-name">AI-Tech Radar</span>
+      </a>
+      <p class="brand-desc">AI 뉴스·논문·특허를 한곳에서</p>
+      <div class="top-tools">
+        <span class="updated" id="updated" aria-live="polite"></span>
+        <button class="icon-btn" id="theme" type="button" aria-label="화면 테마 바꾸기" title="밝게/어둡게">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="notice" id="notice" hidden></div>
+
+  <div class="shell">
+    <section class="controls" aria-label="검색과 보기 방식">
+      <form class="search" id="search-form" role="search" onsubmit="return false">
+        <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="q" type="search" autocomplete="off" spellcheck="false" enterkeyhint="search"
+               placeholder="검색어 — 예: 온디바이스, 엔비디아 HBM, ㅅㅅㅎ"
+               aria-label="뉴스·논문·특허 검색">
+        <kbd class="kbd" aria-hidden="true">/</kbd>
+      </form>
+      <details class="help">
+        <summary>검색 방법</summary>
+        <ul>
+          <li>띄어쓰기는 무시합니다. <b>생성형AI</b>와 <b>생성형 AI</b>는 같은 검색입니다.</li>
+          <li>한글로 찾으면 영문 표현도 함께 찾습니다. <b>엔비디아</b> → Nvidia, <b>자율주행</b> → autonomous driving</li>
+          <li>초성만 입력해도 제목을 찾습니다. <b>ㅎㄴㅇㄷ</b> → 휴머노이드</li>
+          <li>여러 단어는 모두 포함, <b>-단어</b>는 제외, <b>"정확한 구문"</b>, <b>A|B</b>는 둘 중 하나</li>
+          <li>출원인·저자·출원번호·arXiv 번호로도 찾을 수 있습니다.</li>
+        </ul>
+      </details>
+
+      <div class="seg" id="tabs" role="tablist" aria-label="자료 유형"></div>
+
+      <div class="bar">
+        <div class="periods" id="periods" role="group" aria-label="기간"></div>
+        <label class="sort">
+          <span class="vh">정렬</span>
+          <select id="sort">
+            <option value="latest">최신순</option>
+            <option value="relevance">관련도순</option>
+            <option value="hot">화제순</option>
+          </select>
+        </label>
+      </div>
+      <div class="range" id="range" hidden>
+        <label>시작 <input type="date" id="from"></label>
+        <label>끝 <input type="date" id="to"></label>
+      </div>
+    </section>
+
+    <aside class="side" aria-label="분야와 날짜 분포">
+      <section class="panel">
+        <h2 class="panel-h">분야</h2>
+        <div class="cats" id="cats" role="group" aria-label="분야 필터(여러 개 선택 가능)"></div>
+      </section>
+      <details class="panel viz" id="viz" open>
+        <summary class="panel-h">분포 보기</summary>
+        <figure class="radar" id="radar" aria-label="분야별 분포 레이더"></figure>
+        <div class="legend" id="legend"></div>
+        <figure class="timeline" id="timeline" aria-label="최근 14일 수집량"></figure>
+        <p class="hint">막대를 누르면 그날만 봅니다.</p>
+      </details>
+    </aside>
+
+    <main class="feed" id="feed" tabindex="-1">
+      <div class="result-bar" id="result-bar"></div>
+      <div id="list" aria-live="polite"></div>
+      <div class="more" id="more"></div>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <div class="foot-in">
+      <details class="status" id="status">
+        <summary>수집 상태</summary>
+        <div id="status-list"></div>
+      </details>
+      <p>제목·요약·링크만 모아 보여 줍니다. 원문과 저작권은 각 출처에 있습니다.
+        뉴스는 Google 뉴스와 AI 전문 매체 RSS, 논문은 arXiv와 Hugging Face Daily Papers, 특허는 KIPRIS Plus에서 가져옵니다.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>
